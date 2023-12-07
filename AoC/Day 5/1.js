@@ -10,18 +10,6 @@ const setSourceToDest = (mapping, sourceToDest) => {
         for(let i = 0; i < mappingRanges.length; i++){
             let sourceStart = parseInt(mappingRanges[i].split(' ')[1]);
             let rangeCount = parseInt(mappingRanges[i].split(' ')[2]);
-            // if(sourceStart == 53){
-            //     if(sourceToDest[key] >= sourceStart && parseInt(sourceToDest[key]) < (sourceStart + rangeCount)){
-            //         console.log("-------------");
-            //         console.log(sourceStart);
-            //         console.log(rangeCount);
-            //         console.log(key);
-            //         console.log(sourceToDest[key]);
-            //         let destValue = parseInt(mappingRanges[i].split(' ')[0]) + (sourceToDest[key] - sourceStart);
-            //         console.log(destValue);
-            //         console.log(sourceToDest);
-            //     }
-            // }
             if(sourceToDest[key] >= sourceStart && parseInt(sourceToDest[key]) < (sourceStart + rangeCount)){
                 let destValue = parseInt(mappingRanges[i].split(' ')[0]) + (sourceToDest[key] - sourceStart);
                 sourceToDest[key] = destValue;
@@ -29,7 +17,6 @@ const setSourceToDest = (mapping, sourceToDest) => {
             }
         }
     }
-    // console.log("Map", sourceToDest);
 }
 
 async function processLineByLine() {
