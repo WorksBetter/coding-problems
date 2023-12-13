@@ -7,7 +7,7 @@ const getTotalInsidePoints = (map) => {
 
     for (let i = 0; i < map.length; i++) {
         let isInside = false;
-        for (let j = 0; j < map[i].length; j++) {            
+        for (let j = 0; j < map[i].length; j++) {   
             if(map[i][j].visited && (map[i][j].value == 'J' || map[i][j].value == 'L' || map[i][j].value == '|')){
                 isInside = !isInside;
             } else if (!map[i][j].visited && isInside){
@@ -20,6 +20,8 @@ const getTotalInsidePoints = (map) => {
 
 const getTotalPointsInsideLoop = (map, row, col) => {
 
+    let nextToS = '';
+    let prevToS = '';
     let loopCompleted = false;
     let srow = row;
     let scol = col;
@@ -62,7 +64,8 @@ const getTotalPointsInsideLoop = (map, row, col) => {
                 row++;
             } else if(row + 1 < map.length && !map[row + 1][col].visited && map[row + 1][col].value == 'L'){
                 row++;
-            } 
+            }
+            nextToS = map[row][col].value; 
         } else {
             if(map[row][col].value == '7'){
                 if(col - 1 >= 0 && !map[row][col - 1].visited){
@@ -114,9 +117,25 @@ const getTotalPointsInsideLoop = (map, row, col) => {
                 }
             } 
         }
+        if(loopCompleted){
+            prevToS = map[row][col].value;
+        }
     }
 
+    // if((prevToS == 'L' || prevToS == 'J' || prevToS == '|') && (nextToS == 'J' || nextToS == '-' || nextToS == '7')){
+    //     map[srow][scol].value = 'F';
+    // } else if ((prevToS == 'L' || prevToS == 'J' || prevToS == '|') && (nextToS == 'L' || nextToS == '-' || nextToS == 'F')){
+    //     map[srow][scol].value = '7';
+    // } else if((prevToS == '7' || prevToS == 'F' || prevToS == '|') && (nextToS == 'J' || nextToS == '-' || nextToS == '7')){
+    //     map[srow][scol].value = 'L';
+    // } else if((prevToS == '7' || prevToS == 'F' || prevToS == '|') && (nextToS == 'L' || nextToS == '-' || nextToS == 'F')){
+    //     map[srow][scol].value = 'J';
+    // } else if((prevToS == '7' || prevToS == 'F' || prevToS == '|') && (nextToS == 'L' || nextToS == 'J' || nextToS == '|')){
+
+    // }
+
     map[srow][scol].value = 'L';
+
     let total = getTotalInsidePoints(map);
 
     for (let index = 0; index < map.length; index++) {
